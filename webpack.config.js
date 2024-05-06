@@ -18,6 +18,15 @@ module.exports ={
             directory: path.resolve(__dirname, 'dist')
         },
         port: 3000,
+        proxy: [
+            {
+                '/api': {
+                    target: 'http://localhost:5050',
+                    pathRewrite: { '^/api': '' },
+                    changeOrigin: true,
+                },
+            },
+        ],
         open: true,
         hot: true,
         compress: true,
