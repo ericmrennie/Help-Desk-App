@@ -1,24 +1,34 @@
 const Ticket = require('../models/ticket.js');
 
-async function createTicket(req, res) {
+async function createTicket(req, res, next) {
     try {
-        const { name, email, description } = req.body;
-        const newTicket = new Ticket({ name, email, description });
-        await newTicket.save();
-        res.status(201).json({ message: 'Ticket created successfully' });
-    } catch (error) {
-        console.error('Error creating ticket:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        const newTicket = await Ticket.create({
+            name: req.body.name,
+            email: req.body.email,
+            description: req.body.description,
+        });
+        res.locals.player = newTicket;
+        return next();
+    } catch {
+        return next({
+            log: 'An error occurred wuthin the getTickets controller',
+            status: 500,
+            message: { err: 'An error occurred when trying to get tickets.'},
+        });
     }
 }
 
-async function getTickets(req, res) {
+async function getTickets(req, res, next) {
     try {
         const tickets = await Ticket.find({});
         res.locals.players = tickets;
-    } catch (error) {
-        console.error('Error fetching tickets:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        return next();
+    } catch {
+        return next({
+            log: 'An error occurred wuthin the getTickets controller',
+            status: 500,
+            message: { err: 'An error occurred when trying to get tickets.'},
+        });
     }
 };
 
