@@ -17,7 +17,7 @@ mongoose.connect('mongodb+srv://Eric:eric@helpdesk.kvozikl.mongodb.net/?retryWri
 });
 
 // Use ticket routes
-app.use(ticketRoutes);
+app.use("/api/tickets", ticketRoutes);
 
 // global error handler
 app.use((err, req, res, next) => {
