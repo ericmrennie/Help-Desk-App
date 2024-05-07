@@ -5,6 +5,7 @@ const ticketShema = new mongoose.Schema({
   email: { type: String, required: true },
   description: { type: String, required: true },
   status: { type: String, default: 'new' },
+  response: { type: String, default: ''},
 });
 
 const Ticket = mongoose.model('Ticket', ticketShema);
