@@ -13,41 +13,56 @@ export default function Admin() {
     // Function to fetch ticket data from backend API
     const fetchTickets = async () => {
         try {
-        const response = await fetch('http://localhost:5050/api/tickets');
-        if (response.ok) {
+            const response = await fetch('http://localhost:5050/api/tickets');
+            if (response.ok) {
             const data = await response.json();
             setTickets(data);
         } else {
             console.error('Failed to fetch tickets');
         }
         } catch (error) {
-        console.error('Error fetching tickets:', error);
+            console.error('Error fetching tickets:', error);
         }
     };
 
     // Function to handle updating ticket status
-    const handleUpdateStatus = async (ticketId, newStatus) => {
+    const handleUpdateTicket = async (ticketId, newStatus) => {
         try {
-        await updateTicketStatus(ticketId, newStatus);
-        // Update local state to reflect the change in status
-        setTickets(prevTickets =>
-            prevTickets.map(ticket =>
-            ticket.id === ticketId ? { ...ticket, status: newStatus } : ticket
-            )
-        );
+            const response = await fetch(`http://localhost:5050/api/tickets/:${ticketId}/status`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ status: newStatus }),
+            });
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Ticket status updated successfully:', data);
+                return data;
+            }
         } catch (error) {
-        console.error('Error updating ticket status:', error);
+            console.error('Error updating ticket status:', error);
         }
     };
 
     // Function to handle responding to a ticket
-    const handleRespondToTicket = async (ticketId, responseMessage) => {
+    const handleHandleResponse = async (ticketId, responseMessage) => {
         try {
-        await respondToTicket(ticketId, responseMessage);
-        // Optionally, fetch updated ticket data after responding to the ticket
-        fetchTickets();
+            const response = await fetch(`http://localhost:5050/api/tickets/:${ticketId}/response`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ response: responseMessage }),
+            });
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Response added to ticket successfully:', data);
+                console.log(responseMessage);
+                return data;
+            }
         } catch (error) {
-        console.error('Error responding to ticket:', error);
+            console.error('Error responding to ticket:', error);
         }
     };
 
@@ -62,10 +77,10 @@ export default function Admin() {
             <div>
                 {tickets.map(ticket => (
                     <TicketSummary
-                        key={ticket.id}
+                        key={ticket._id}
                         ticket={ticket}
-                        onUpdateStatus={handleUpdateStatus}
-                        onRespond={handleRespondToTicket}
+                        onUpdateStatus={handleUpdateTicket}
+                        onRespond={handleHandleResponse}
                     />
                 ))}
             </div>

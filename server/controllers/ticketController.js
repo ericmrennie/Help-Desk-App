@@ -34,13 +34,13 @@ async function getTickets(req, res, next) {
 
 async function updateTicket(req, res, next) {
     try{
-        const updateTicket = await Ticket.findOneAndUpdate(
+        const updatedTicket = await Ticket.findOneAndUpdate(
             { id: req.params.name },
             { status: req.body.status },
             { new: true }
         );
 
-        res.locals.ticket = updateTicket;
+        res.locals.ticket = updatedTicket;
         return next();
     } catch {
         return next({
@@ -53,13 +53,13 @@ async function updateTicket(req, res, next) {
 
 async function handleResponse(req, res, next) {
     try{
-        const handleResponse = await Ticket.findOneAndUpdate(
+        const handledResponse = await Ticket.findOneAndUpdate(
             { id: req.params.name },
             { response: req.body.response },
             { new: true }
         );
 
-        res.locals.response = handleResponse;
+        res.locals.response = handledResponse;
         return next();
     } catch {
         return next({
