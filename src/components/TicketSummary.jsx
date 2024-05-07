@@ -1,11 +1,16 @@
-import React from "react"
+import React, { useState } from "react"
 
 export default function TicketSummary({ ticket, onUpdateStatus, onRespond}) {
-    const { _id, name, email, status, description, response } = ticket;
+    const { _id, name, email, status, description } = ticket;
+
+    // State to hold the selected status
+    const [selectedStatus, setSelectedStatus] = useState(status);
 
     const handleUpdateStatus = (newStatus) => {
         // Call the onUpdateStatus function with the ticket ID and new status
         onUpdateStatus(_id, newStatus);
+        // Update the selected status in the state
+        setSelectedStatus(newStatus);
     };
 
     const handleRespond = () => {
@@ -16,19 +21,20 @@ export default function TicketSummary({ ticket, onUpdateStatus, onRespond}) {
 
     return(
         <div className="ticket-summary">
-            <h2>Ticket ID: {_id}</h2>
             <p>Name: {name}</p>
             <p>Email: {email}</p>
-            <p>Status: {status}</p>
             <p>Description: {description}</p>
-            <select value={status} onChange={(e) => handleUpdateStatus(e.target.value)}>
-                <option value="new">New</option>
-                <option value="in progress">In Progress</option>
-                <option value="resolved">Resolved</option>
-            </select>
+            <div>
+                <label htmlFor="statusSelect">Status: </label>
+                <select id="statusSelect" value={selectedStatus} onChange={(e) => handleUpdateStatus(e.target.value)}>
+                    <option value="new">New</option>
+                    <option value="in progress">In Progress</option>
+                    <option value="resolved">Resolved</option>
+                </select>
+            </div>
             <div>
                 <textarea id="responseTextarea" placeholder="Enter response..." />
-                <button onClick={handleRespond}>Respond</button>
+                <button onClick={(e) => handleRespond(e.target.value)}>Respond</button>
             </div>
         </div>
     );
