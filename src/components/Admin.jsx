@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TicketSummary from "./TicketSummary.jsx"
-import { updateTicket, handleResponse } from "/Users/ericrennie/Desktop/Zealthy-FSE-Exercise/server/controllers/ticketController.js"
+import { Link } from 'react-router-dom';
 
 export default function Admin() {
     const[tickets, setTickets] = useState([]);
@@ -9,7 +9,7 @@ export default function Admin() {
     useEffect(() => {
         fetchTickets();
     }, []);
-
+    
     // Function to fetch ticket data from backend API
     const fetchTickets = async () => {
         try {
@@ -58,7 +58,7 @@ export default function Admin() {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Response added to ticket successfully:', data);
-                console.log(responseMessage);
+                console.log('Would normally send email here with body: ', responseMessage);
                 return data;
             }
         } catch (error) {
@@ -66,16 +66,17 @@ export default function Admin() {
         }
     };
 
-
-
-
-
+    // Make new tickets appear first
+    const reversedTickets = [...tickets].reverse();
 
     return(
-        <div>
-            <h1>Ticket Summaries</h1>
+        <div className="admin-page">
+            <h1 className="ticket-summaries-title">Ticket Summaries</h1>
+            <Link to='/'>
+                <button className="main-page-button">Go to Main Page</button>
+            </Link>
             <div>
-                {tickets.map(ticket => (
+                {reversedTickets.map(ticket => (
                     <TicketSummary
                         key={ticket._id}
                         ticket={ticket}

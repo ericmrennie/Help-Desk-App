@@ -21,19 +21,26 @@ export default function TicketSummary({ ticket, onUpdateStatus, onRespond}) {
 
     return(
         <div className="ticket-summary">
-            <p>Name: {name}</p>
-            <p>Email: {email}</p>
-            <p>Description: {description}</p>
-            <div>
-                <label htmlFor="statusSelect">Status: </label>
-                <select id="statusSelect" value={selectedStatus} onChange={(e) => handleUpdateStatus(e.target.value)}>
-                    <option value="new">New</option>
-                    <option value="in progress">In Progress</option>
-                    <option value="resolved">Resolved</option>
-                </select>
+            <div className="row">
+                <p>Name: {name}</p>
+                <p>Email: {email}</p>
+                <div className="status-and-selector">
+                    <label htmlFor="statusSelect">Status: </label>
+                    <select id="statusSelect" value={selectedStatus} onChange={(e) => handleUpdateStatus(e.target.value)}>
+                        <option value="new">New</option>
+                        <option value="in progress">In Progress</option>
+                        <option value="resolved">Resolved</option>
+                    </select>
+                </div>
             </div>
-            <div>
-                <textarea id="responseTextarea" placeholder="Enter response..." />
+            <p className="description">Description: {description}</p>
+            <div className="response-wrapper">
+                <textarea 
+                    id="responseTextarea" 
+                    placeholder="Enter response..." 
+                    rows={7} 
+                    cols={60}
+                />
                 <button onClick={(e) => handleRespond(e.target.value)}>Respond</button>
             </div>
         </div>
