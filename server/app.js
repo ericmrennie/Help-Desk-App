@@ -3,13 +3,14 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const ticketRoutes = require('./routes/ticketRoutes');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
 // Connect to database
-mongoose.connect('mongodb+srv://Eric:eric@helpdesk.kvozikl.mongodb.net/?retryWrites=true&w=majority&appName=HelpDesk').then(() => {
+mongoose.connect(process.env.DB_URI).then(() => {
     console.log('Connected to DB');
 }).catch(err => {
     console.error('Error connecting to DB: ', err);
@@ -31,8 +32,8 @@ app.use((err, req, res, next) => {
     return res.status(errorObj.status).json(errorObj.message);
 });
 
-
+// server port
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
-    console.log('Server listening on port ${PORT}');
+    console.log(`Server listening on port ${PORT}`);
 });

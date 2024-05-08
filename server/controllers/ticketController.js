@@ -1,5 +1,6 @@
 const Ticket = require('../models/ticket.js');
 
+// create ticket controller
 async function createTicket(req, res, next) {
     try {
         const newTicket = await Ticket.create({
@@ -18,6 +19,7 @@ async function createTicket(req, res, next) {
     }
 }
 
+//get tickets controller
 async function getTickets(req, res, next) {
     try {
         const tickets = await Ticket.find({});
@@ -32,10 +34,11 @@ async function getTickets(req, res, next) {
     }
 };
 
+// update tickets controller
 async function updateTicket(req, res, next) {
     try{
         const updatedTicket = await Ticket.findOneAndUpdate(
-            { id: req.params.name },
+            { id: req.params.id },
             { status: req.body.status },
             { new: true }
         );
@@ -51,10 +54,11 @@ async function updateTicket(req, res, next) {
     }
 };
 
+// response controller
 async function handleResponse(req, res, next) {
     try{
         const handledResponse = await Ticket.findOneAndUpdate(
-            { id: req.params.name },
+            { id: req.params.id },
             { response: req.body.response },
             { new: true }
         );

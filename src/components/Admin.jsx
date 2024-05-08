@@ -25,7 +25,7 @@ export default function Admin() {
         }
     };
 
-    // Function to handle updating ticket status
+    // Function to update ticket status
     const handleUpdateTicket = async (ticketId, newStatus) => {
         try {
             const response = await fetch(`http://localhost:5050/api/tickets/:${ticketId}/status`, {
@@ -45,8 +45,8 @@ export default function Admin() {
         }
     };
 
-    // Function to handle responding to a ticket
-    const handleHandleResponse = async (ticketId, responseMessage) => {
+    // Function to respond to a ticket
+    const respond = async (ticketId, responseMessage) => {
         try {
             const response = await fetch(`http://localhost:5050/api/tickets/:${ticketId}/response`, {
                 method: 'PATCH',
@@ -81,7 +81,7 @@ export default function Admin() {
                         key={ticket._id}
                         ticket={ticket}
                         onUpdateStatus={handleUpdateTicket}
-                        onRespond={handleHandleResponse}
+                        onRespond={respond}
                     />
                 ))}
             </div>
