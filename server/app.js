@@ -10,7 +10,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Connect to database
-// Would normally not have 
 mongoose.connect(process.env.DB_URI).then(() => {
     console.log('Connected to DB');
 }).catch(err => {
@@ -33,8 +32,8 @@ app.use((err, req, res, next) => {
     return res.status(errorObj.status).json(errorObj.message);
 });
 
-
+// server port
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
-    console.log('Server listening on port ${PORT}');
+    console.log(`Server listening on port ${PORT}`);
 });
