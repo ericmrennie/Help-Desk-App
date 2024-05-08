@@ -6,17 +6,21 @@ import '../styles/main.scss'
 import { Link } from 'react-router-dom';
 
 export default function MainPage() {
+
+    // state for form data
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         description: '',
     });
 
+    // event handler for setForm data
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    // submit formData to database
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {

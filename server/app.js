@@ -3,13 +3,15 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const ticketRoutes = require('./routes/ticketRoutes');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
 // Connect to database
-mongoose.connect('mongodb+srv://Eric:eric@helpdesk.kvozikl.mongodb.net/?retryWrites=true&w=majority&appName=HelpDesk').then(() => {
+// Would normally not have 
+mongoose.connect(process.env.DB_URI).then(() => {
     console.log('Connected to DB');
 }).catch(err => {
     console.error('Error connecting to DB: ', err);
