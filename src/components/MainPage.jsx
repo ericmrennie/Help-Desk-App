@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Name from './Name.jsx'
 import Email from './Email.jsx'
 import Description from './Description.jsx'
+import Snackbar from './Snackbar.jsx'
 import '../styles/main.scss'
 import { Link } from 'react-router-dom';
 
@@ -19,6 +20,11 @@ export default function MainPage() {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
     };
+
+    // state for snackbar
+    const [snackbarKey, setSnackbarKey] = useState(0);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarType, setSnackbarType] = useState('');
 
     // submit formData to database
     const handleSubmit = async (event) => {
@@ -38,25 +44,32 @@ export default function MainPage() {
                     email: '',
                     description: '',
                 });
-                window.alert('Ticket submitted!')
+                setSnackbarMessage('Ticket submitted successfully!');
+                setSnackbarType('success');
             } else {
+                setSnackbarMessage('Ticket submission failed.');
+                setSnackbarType('error');
                 console.error('Failed to submit ticket');
             }
+            setSnackbarKey((prevKey) => prevKey + 1);
         } catch (error) {
             console.error('Error submitting ticket:', error);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="main-page-form">
-            <h1 className="help-desk-title">Help Desk</h1>
-            <Name handleInputChange={handleInputChange} value={formData.name} />
-            <Email handleInputChange={handleInputChange} value={formData.email} />
-            <Description handleInputChange={handleInputChange} value={formData.description} />
-            <button type="submit" className="submit-button">Submit</button>
-            <Link to='/admin'>
-                <button className="admin-page-button">Go to Admin Page</button>
-            </Link>
-        </form>
+        <div>
+            <form onSubmit={handleSubmit} className="main-page-form">
+                <h1 className="help-desk-title">Help Desk</h1>
+                <Name handleInputChange={handleInputChange} value={formData.name} />
+                <Email handleInputChange={handleInputChange} value={formData.email} />
+                <Description handleInputChange={handleInputChange} value={formData.description} />
+                <button type="submit" className="submit-button">Submit</button>
+                <Link to='/admin'>
+                    <button className="admin-page-button">Go to Admin Page</button>
+                </Link>
+            </form>
+            <Snackbar key={snackbarKey} message={snackbarMessage} show={true} type={snackbarType}/>
+        </div>
     );
-}
+};
