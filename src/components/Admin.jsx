@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import TicketSummary from "./TicketSummary.jsx"
+import TicketModal from "./TicketModal.jsx";
 import { Link } from 'react-router-dom';
 
 export default function Admin() {
     const[tickets, setTickets] = useState([]);
+    const[selectedTicket, setSelectedTicket] = useState(null);
 
     // fetch ticket data from backend API when component mounts
     useEffect(() => {
@@ -66,6 +68,14 @@ export default function Admin() {
         }
     };
 
+    const openModal = (ticket) => {
+        setSelectedTicket(ticket);
+    }
+
+    const closeModal = (ticket) => {
+        setSelectedTicket(null);
+    }
+
     // Make new tickets appear first
     const reversedTickets = [...tickets].reverse();
 
@@ -77,14 +87,23 @@ export default function Admin() {
             </Link>
             <div>
                 {reversedTickets.map(ticket => (
-                    <TicketSummary
-                        key={ticket._id}
-                        ticket={ticket}
-                        onUpdateStatus={handleUpdateTicket}
-                        onRespond={respond}
-                    />
+                    <div key={ticket._id}>
+                        <TicketSummary
+                            ticket={ticket}
+                            onUpdateStatus={handleUpdateTicket}
+                            onOpenModal={openModal}
+                        />
+                    </div>
                 ))}
             </div>
+            {selectedTicket && (
+                <TicketModal 
+                    ticket={selectedTicket} 
+                    onClose={closeModal} 
+                    onUpdateStatus={handleUpdateTicket}
+                    onRespond={respond}
+                    />
+            )}
         </div>
     );
 }
