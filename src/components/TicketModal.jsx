@@ -1,9 +1,14 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import '../styles/ticketModal.scss'
 
 export default function TicketModal({ ticket, onClose, onUpdateStatus, onRespond }) {
     const [selectedStatus, setSelectedStatus] = useState(ticket.status);
     const [responseMessage, setResponseMessage] = useState(ticket.response || '');
+
+    // Update selectedStatus when ticket prop changes
+    useEffect(() => {
+        setSelectedStatus(ticket.status);
+    }, [ticket]);
 
     const handleUpdateStatus = (newStatus) => {
         onUpdateStatus(ticket._id, newStatus);
@@ -12,6 +17,7 @@ export default function TicketModal({ ticket, onClose, onUpdateStatus, onRespond
 
     const handleRespond = () => {
         onRespond(ticket._id, responseMessage);
+        setResponseMessage('');
     };
     
     return (

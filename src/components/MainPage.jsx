@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Name from './Name.jsx'
 import Email from './Email.jsx'
 import Description from './Description.jsx'
@@ -25,6 +25,15 @@ export default function MainPage() {
     const [snackbarKey, setSnackbarKey] = useState(0);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarType, setSnackbarType] = useState('');
+
+    // Check local storage on mount
+    useEffect(() => {
+        const snackbarShown = localStorage.getItem('snackbarShown');
+        if (snackbarShown) {
+            localStorage.removeItem('snackbarShown'); // Remove the flag if it exists
+        }
+    }, []);
+
 
     // submit formData to database
     const handleSubmit = async (event) => {
@@ -53,6 +62,8 @@ export default function MainPage() {
             }
             setSnackbarKey((prevKey) => prevKey + 1);
         } catch (error) {
+            setSnackbarMessage('Error submitting ticket.');
+            setSnackbarType('error');
             console.error('Error submitting ticket:', error);
         }
     };
@@ -69,7 +80,7 @@ export default function MainPage() {
                     <button className="admin-page-button">Go to Admin Page</button>
                 </Link>
             </form>
-            <Snackbar key={snackbarKey} message={snackbarMessage} show={true} type={snackbarType}/>
+            <Snackbar key={snackbarKey} message={snackbarMessage} show={snackbarMessage !== ''} type={snackbarType}/>
         </div>
     );
 };

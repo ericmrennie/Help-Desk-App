@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import TicketSummary from "./TicketSummary.jsx"
 import TicketModal from "./TicketModal.jsx";
 import { Link } from 'react-router-dom';
+import utils from '../utils/api.js';
 
 export default function Admin() {
     const[tickets, setTickets] = useState([]);
@@ -19,9 +20,9 @@ export default function Admin() {
             if (response.ok) {
             const data = await response.json();
             setTickets(data);
-        } else {
-            console.error('Failed to fetch tickets');
-        }
+            } else {
+                console.error('Failed to fetch tickets');
+            }
         } catch (error) {
             console.error('Error fetching tickets:', error);
         }
@@ -40,6 +41,8 @@ export default function Admin() {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Ticket status updated successfully:', data);
+                setTickets(prevTickets => prevTickets.map(ticket => 
+                    ticket._id === data._id ? {...ticket, status: data.status} : ticket));
                 return data;
             }
         } catch (error) {
@@ -72,7 +75,7 @@ export default function Admin() {
         setSelectedTicket(ticket);
     }
 
-    const closeModal = (ticket) => {
+    const closeModal = () => {
         setSelectedTicket(null);
     }
 
