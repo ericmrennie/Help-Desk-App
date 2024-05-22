@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import TicketSummary from "./TicketSummary.jsx"
-import TicketModal from "./TicketModal.jsx";
+import TicketSummaries from "./TicketSummaries.jsx"
 import { Link } from 'react-router-dom';
 import api from '../utils/api.js';
 
@@ -26,6 +25,7 @@ export default function Admin() {
     // Function to update ticket status
     const handleUpdateTicket = async (ticketId, newStatus) => {
         try {
+            console.log('this is the ticket id now being passed into the admin component, about to be sent to the backend api', ticketId);
             const data = await api.updateTicketStatus(ticketId, newStatus)
             console.log('Ticket status updated successfully:', data);
             setTickets(prevTickets => prevTickets.map(ticket => 
@@ -40,7 +40,7 @@ export default function Admin() {
     const respond = async (ticketId, responseMessage) => {
         try {
             const data = await api.respondToTicket(ticketId, responseMessage);
-            console.log('Response added to ticket successfully:', data);
+            console.log('Response added to ticket successfully');
             console.log('Would normally send email here with body: ', responseMessage);
         } catch (error) {
             console.error('Error responding to ticket:', error);
@@ -55,33 +55,20 @@ export default function Admin() {
         setSelectedTicket(null);
     }
 
-    // Make new tickets appear first
-    const reversedTickets = [...tickets].reverse();
-
     return(
         <div className="admin-page">
             <h1 className="ticket-summaries-title">Ticket Summaries</h1>
             <Link to='/'>
                 <button className="main-page-button">Go to Main Page</button>
             </Link>
-            <div>
-                {reversedTickets.map(ticket => (
-                    <div key={ticket._id}>
-                        <TicketSummary
-                            ticket={ticket}
-                            onOpenModal={openModal}
-                        />
-                    </div>
-                ))}
-            </div>
-            {selectedTicket && (
-                <TicketModal 
-                    ticket={selectedTicket} 
-                    onClose={closeModal} 
-                    onUpdateStatus={handleUpdateTicket}
-                    onRespond={respond}
-                    />
-            )}
+            <TicketSummaries
+                tickets={tickets}
+                openModal={openModal}
+                handleUpdateTicket={handleUpdateTicket}
+                respond={respond}
+                selectedTicket={selectedTicket}
+                closeModal={closeModal}
+            />
         </div>
     );
 }

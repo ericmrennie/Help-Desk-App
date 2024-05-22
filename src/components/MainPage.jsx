@@ -3,24 +3,12 @@ import Name from './Name.jsx'
 import Email from './Email.jsx'
 import Description from './Description.jsx'
 import Snackbar from './Snackbar.jsx'
+import Form from './Form.jsx'
 import '../styles/main.scss'
 import { Link } from 'react-router-dom';
 import api from '../utils/api.js'
 
 export default function MainPage() {
-
-    // state for form data
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        description: '',
-    });
-
-    // event handler for setForm data
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
-    };
 
     // state for snackbar
     const [snackbarKey, setSnackbarKey] = useState(0);
@@ -37,45 +25,40 @@ export default function MainPage() {
 
 
     // submit formData to database
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async (formData) => {
         try {
             const data = await api.submitTicket(formData);
             if (data) {
-                console.log('Ticket submitted successfully');
-                setFormData({
-                    name: '',
-                    email: '',
-                    description: '',
-                });
                 setSnackbarMessage('Ticket submitted successfully!');
                 setSnackbarType('success');
+                console.log('Ticket data: ',data)
             } else {
                 setSnackbarMessage('Ticket submission failed.');
                 setSnackbarType('error');
-                console.error('Failed to submit ticket');
             }
             setSnackbarKey((prevKey) => prevKey + 1);
         } catch (error) {
             setSnackbarMessage('Error submitting ticket.');
             setSnackbarType('error');
             console.error('Error submitting ticket:', error);
+            setSnackbarKey((prevKey) => prevKey + 1);
         }
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit} className="main-page-form">
-                <h1 className="help-desk-title">Help Desk</h1>
-                <Name handleInputChange={handleInputChange} value={formData.name} />
-                <Email handleInputChange={handleInputChange} value={formData.email} />
-                <Description handleInputChange={handleInputChange} value={formData.description} />
-                <button type="submit" className="submit-button">Submit</button>
-                <Link to='/admin'>
-                    <button className="admin-page-button">Go to Admin Page</button>
-                </Link>
-            </form>
-            <Snackbar key={snackbarKey} message={snackbarMessage} show={snackbarMessage !== ''} type={snackbarType}/>
+        <div className='main-page-container'>
+            <div className='main-page-form'>
+            <h1 className="help-desk-title">Help Desk</h1>
+            <Form initialState={{ name: '', email: '', description: '' }} onSubmit={handleSubmit}>
+                <Name name="name" />
+                <Email name="email" />
+                <Description name="description" />
+            </Form>
+            <Link to='/admin'>
+                <button className="admin-page-button">Go to Admin Page</button>
+            </Link>
+            </div>
+            <Snackbar key={snackbarKey} message={snackbarMessage} show={snackbarMessage !== ''} type={snackbarType} />
         </div>
     );
 };

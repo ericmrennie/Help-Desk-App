@@ -4,7 +4,7 @@ export default function Email({ handleInputChange, value }) {
     return (
         <div>
             <input
-                type="text"
+                type="email"
                 id="emailInput"
                 placeholder='Email address*'
                 name="email"

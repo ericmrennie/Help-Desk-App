@@ -11,6 +11,8 @@ export default function TicketModal({ ticket, onClose, onUpdateStatus, onRespond
     }, [ticket]);
 
     const handleUpdateStatus = (newStatus) => {
+        console.log("Ticket ID of ticket we are updating:", ticket._id);
+        console.log(ticket._id, newStatus);
         onUpdateStatus(ticket._id, newStatus);
         setSelectedStatus(newStatus);
     };

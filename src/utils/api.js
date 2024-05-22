@@ -48,8 +48,10 @@ const api = {
                 },
                 body: JSON.stringify({ status: newStatus }),
             });
+            console.log('this is the url we are fetching to', `${BASE_URL}/${ticketId}/status`)
             if (response.ok) {
                 const data = await response.json();
+                console.log('this the data we are getting back', data)
                 return data;
             }
         } catch (error) {
