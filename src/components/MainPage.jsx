@@ -5,6 +5,7 @@ import Description from './Description.jsx'
 import Snackbar from './Snackbar.jsx'
 import '../styles/main.scss'
 import { Link } from 'react-router-dom';
+import api from '../utils/api.js'
 
 export default function MainPage() {
 
@@ -39,14 +40,8 @@ export default function MainPage() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('http://localhost:5050/api/tickets', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-            if (response.ok) {
+            const data = await api.submitTicket(formData);
+            if (data) {
                 console.log('Ticket submitted successfully');
                 setFormData({
                     name: '',

@@ -38,6 +38,7 @@ export default function TicketModal({ ticket, onClose, onUpdateStatus, onRespond
                         <option value="resolved">Resolved</option>
                     </select>
                 </div>
+                <p>Description: {ticket.description}</p>
                 <div className="response-wrapper">
                     <textarea
                         value={responseMessage}
