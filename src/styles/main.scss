@@ -5,6 +5,13 @@
     border-radius: 5px;
 }
 
+.main-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto; /* Adjust the height as needed */
+}
+
 .main-page-form {
     display: flex;
     flex-direction: column;
