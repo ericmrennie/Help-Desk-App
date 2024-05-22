@@ -19,7 +19,7 @@ const Form = ({ initialState, onSubmit, children }) => {
             {React.Children.map(children, child => {
                 return React.cloneElement(child, { handleInputChange, value: formData[child.props.name] });
             })}
-            <button type="submit">Submit</button>
+            <button type="submit" style={{width: '20%', margin: '0 auto'}}>Submit</button>
         </form>
     );
 };

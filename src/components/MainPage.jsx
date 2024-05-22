@@ -46,19 +46,24 @@ export default function MainPage() {
     };
 
     return (
-        <div className='main-page-container'>
-            <div className='main-page-form'>
+        <div>
+            <div className='title-and-button'>
             <h1 className="help-desk-title">Help Desk</h1>
-            <Form initialState={{ name: '', email: '', description: '' }} onSubmit={handleSubmit}>
-                <Name name="name" />
-                <Email name="email" />
-                <Description name="description" />
-            </Form>
             <Link to='/admin'>
                 <button className="admin-page-button">Go to Admin Page</button>
             </Link>
             </div>
-            <Snackbar key={snackbarKey} message={snackbarMessage} show={snackbarMessage !== ''} type={snackbarType} />
+            <div className='main-page-container'>
+                <div className='main-page-form'>
+                <Form initialState={{ name: '', email: '', description: '' }} onSubmit={handleSubmit} >
+                    <Name name="name" />
+                    <Email name="email" />
+                    <Description name="description" />
+                </Form>
+
+                </div>
+                <Snackbar key={snackbarKey} message={snackbarMessage} show={snackbarMessage !== ''} type={snackbarType} />
+            </div>
         </div>
     );
 };
