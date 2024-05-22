@@ -2,7 +2,6 @@ import React from 'react';
 
 export default function Description({ handleInputChange, value }) {
     return (
-        <div>
             <textarea
                 id="descriptionInput"
                 name="description"
@@ -11,7 +10,13 @@ export default function Description({ handleInputChange, value }) {
                 cols={60} 
                 value={value}
                 onChange={handleInputChange}
+                style={{ 
+                    padding: '7px', 
+                    borderRadius: '10px',
+                    margin: '0 auto',
+                    marginBottom: '15px',
+                    border: '1px outset #000'
+                }}
             />
-        </div>
     );
 }
