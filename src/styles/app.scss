@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #aee5c0;
+    margin: 0;
+    padding: 0;
+    height: 100vh; // Ensure the body takes up the full viewport height
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+button {
+    background-color: #00531b;
+    font-size: 12px;
+    color: white;
+    border-radius: 100px;
+    padding: 10px;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+input, textarea, select {
+    background: #F5F5F5;
+}
+
+.title-and-button {
+    box-sizing: border-box;
+    margin-bottom: 40px;
+    display: flex;
+    flex-flow: wrap;
+    width: 100%;
+    padding-left: 52px;
+    padding-right: 52px;
+    height: 108px;
+    background-color: rgb(255, 255, 255);
+    border-bottom: 2px solid rgb(119, 119, 119);
+    justify-content: space-between;
+    align-items: center;
+}

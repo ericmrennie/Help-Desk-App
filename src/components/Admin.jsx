@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import TicketSummaries from "./TicketSummaries.jsx"
 import { Link } from 'react-router-dom';
 import api from '../utils/api.js';
+import '../styles/adminPage.scss'
 
 export default function Admin() {
     const[tickets, setTickets] = useState([]);
@@ -57,10 +58,12 @@ export default function Admin() {
 
     return(
         <div className="admin-page">
-            <h1 className="ticket-summaries-title">Ticket Summaries</h1>
-            <Link to='/'>
-                <button className="main-page-button">Go to Main Page</button>
-            </Link>
+            <div className="title-and-button">
+                <h1 className="ticket-summaries-title">Ticket Summaries</h1>
+                <Link to='/'>
+                    <button className="main-page-button">Go to Main Page</button>
+                </Link>
+            </div>
             <TicketSummaries
                 tickets={tickets}
                 openModal={openModal}
