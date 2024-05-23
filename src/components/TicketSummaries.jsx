@@ -13,7 +13,7 @@ export default function TicketSummaries({
     const reversedTickets = [...tickets].reverse();
 
     return (
-        <div>
+        <div className="ticket-summaries-container">
             {reversedTickets.map(ticket => (
                 <div key={ticket._id}>
                     <TicketSummary

@@ -5,7 +5,7 @@ export default function Description({ handleInputChange, value }) {
             <textarea
                 id="descriptionInput"
                 name="description"
-                placeholder='Problem Description...'
+                placeholder="What can I help you with?"
                 rows={7} 
                 cols={60} 
                 value={value}

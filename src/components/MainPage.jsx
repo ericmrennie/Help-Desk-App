@@ -4,7 +4,7 @@ import Email from './Email.jsx'
 import Description from './Description.jsx'
 import Snackbar from './Snackbar.jsx'
 import Form from './Form.jsx'
-import '../styles/main.scss'
+import '../styles/mainPage.scss'
 import { Link } from 'react-router-dom';
 import api from '../utils/api.js'
 
