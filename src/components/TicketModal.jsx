@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import '../styles/ticketModal.scss'
+import e from "cors";
 
 export default function TicketModal({ ticket, onClose, onUpdateStatus, onRespond }) {
     const [selectedStatus, setSelectedStatus] = useState(ticket.status);
@@ -8,6 +9,7 @@ export default function TicketModal({ ticket, onClose, onUpdateStatus, onRespond
     // Update selectedStatus when ticket prop changes
     useEffect(() => {
         setSelectedStatus(ticket.status);
+        setResponseMessage('');
     }, [ticket]);
 
     const handleUpdateStatus = (newStatus) => {
@@ -18,10 +20,13 @@ export default function TicketModal({ ticket, onClose, onUpdateStatus, onRespond
     };
 
     const handleRespond = () => {
-        onRespond(ticket._id, responseMessage);
-        setResponseMessage('');
-    };
-    
+        if (!responseMessage) {
+            console.log('Must enter message');
+        } else {
+            onRespond(ticket._id, responseMessage);
+            setResponseMessage('');
+        }
+    }
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -29,7 +34,7 @@ export default function TicketModal({ ticket, onClose, onUpdateStatus, onRespond
                 <p><strong>Name:</strong> {ticket.name}</p>
                 <p><strong>Email:</strong> {ticket.email}</p>
                 <div className="status-and-selector">
-                    <label htmlFor="statusSelect">Status: </label>
+                    <label htmlFor="statusSelect"><span className="label">Status: </span></label>
                     <select
                         id="statusSelect"
                         value={selectedStatus}
@@ -40,18 +45,20 @@ export default function TicketModal({ ticket, onClose, onUpdateStatus, onRespond
                         <option value="resolved">Resolved</option>
                     </select>
                 </div>
-                <p>Description: {ticket.description}</p>
-                <div className="response-wrapper">
+                <p><span className="label">Description: </span>{ticket.description}</p>
+                <div>
                     <textarea
                         value={responseMessage}
                         onChange={(e) => setResponseMessage(e.target.value)}
                         placeholder="Enter response..."
-                        rows={7}
-                        cols={60}
+                        // rows={7}
+                        // cols={60}
                     />
+                </div>
+                <div className="ticket-modal-buttons">
+                    <button onClick={onClose}>Close</button>
                     <button onClick={handleRespond}>Respond</button>
                 </div>
-                <button onClick={onClose}>Close</button>
             </div>
         </div>
     );

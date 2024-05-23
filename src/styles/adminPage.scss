@@ -4,6 +4,7 @@
   gap: 20px; // Space between grid items
   margin: 0 30px; // Margin for the container
   align-items: stretch;
+  margin-bottom: 20px;
 }
 
 
@@ -80,4 +81,23 @@
     //position: absolute;
     top: 20px;
     right: 20px;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+    .ticket-summaries-container {
+    grid-template-columns: 1fr; /* Change to a single column layout */
+    }
+
+    .admin-page {
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    .ticket-summaries-title {
+        font-size: 30px;
+    }
+
+    .main-page-button {
+        margin-bottom: 20px
+    }
 }

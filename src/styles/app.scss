@@ -37,9 +37,20 @@ input, textarea, select {
     width: 100%;
     padding-left: 52px;
     padding-right: 52px;
-    height: 108px;
+    min-height: 108px;
+    height: auto;
     background-color: rgb(255, 255, 255);
     border-bottom: 2px solid rgb(119, 119, 119);
     justify-content: space-between;
     align-items: center;
+    flex-grow: 1;
+}
+
+@media (max-width: 600px) {
+    .title-and-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
 }

@@ -3,11 +3,12 @@ import React from 'react';
 export default function Description({ handleInputChange, value }) {
     return (
             <textarea
+                className='description-input'
                 id="descriptionInput"
                 name="description"
                 placeholder="What can I help you with?"
-                rows={7} 
-                cols={60} 
+                // rows={7} 
+                // cols={60} 
                 value={value}
                 onChange={handleInputChange}
                 style={{ 
