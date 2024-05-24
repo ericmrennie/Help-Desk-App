@@ -33,9 +33,9 @@
 
 .modal-content textarea {
     border-radius: 10px;
-    resize: both; /* Allow resizing in both directions */
-    overflow: auto; /* Handle overflow */
-    min-width: 500px; /* Set a minimum width */
+    resize: both; 
+    overflow: auto; 
+    min-width: 500px; 
     min-height: 150px; 
     max-height: 50vh;
     max-width: 1000px;
@@ -49,7 +49,7 @@
 .ticket-modal-buttons {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px; /* optional, adjust for spacing */
+    margin-top: 10px; 
     padding-top: 10px;
     box-sizing: border-box;
 }
@@ -67,5 +67,7 @@
 
     .modal-content textarea {
         min-width: 300px;
+        max-width: 300px;
+        max-height: 150px;
     }
 }

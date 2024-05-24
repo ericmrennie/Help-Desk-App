@@ -47,3 +47,11 @@ to {bottom: 0; opacity: 0;}
 from {bottom: 30px; opacity: 1;}
 to {bottom: 0; opacity: 0;}
 }
+
+@media (max-width: 600px) {
+    #snackbar {
+        width: 80%; 
+        left: 38%;  
+        transform: none; 
+    }
+}

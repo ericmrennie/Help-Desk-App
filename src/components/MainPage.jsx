@@ -60,7 +60,6 @@ export default function MainPage() {
                     <Email name="email" />
                     <Description name="description" />
                 </Form>
-
                 </div>
                 <Snackbar key={snackbarKey} message={snackbarMessage} show={snackbarMessage !== ''} type={snackbarType} />
             </div>
