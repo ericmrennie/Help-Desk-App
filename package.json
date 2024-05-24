@@ -7,7 +7,8 @@
     "build": "webpack",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node server/app.js",
-    "client": "webpack server"
+    "client": "webpack server",
+    "heroku-postbuild": "npm install"
   },
   "keywords": [],
   "author": "",
