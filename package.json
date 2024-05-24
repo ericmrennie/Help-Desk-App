@@ -8,7 +8,9 @@
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node server/app.js",
     "client": "webpack server",
+    "postinstall": "npm install -g concurrently",
     "heroku-postbuild": "npm install"
+
   },
   "keywords": [],
   "author": "",
