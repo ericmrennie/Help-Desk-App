@@ -5,7 +5,7 @@ body {
     background-color: #aee5c0;
     margin: 0;
     padding: 0;
-    height: 100vh; // Ensure the body takes up the full viewport height
+    height: 100vh; 
 }
 
 form {
@@ -31,7 +31,7 @@ input, textarea, select {
 
 .title-and-button {
     box-sizing: border-box;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     display: flex;
     flex-flow: wrap;
     width: 100%;

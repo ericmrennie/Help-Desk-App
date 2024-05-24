@@ -51,8 +51,6 @@ export default function TicketModal({ ticket, onClose, onUpdateStatus, onRespond
                         value={responseMessage}
                         onChange={(e) => setResponseMessage(e.target.value)}
                         placeholder="Enter response..."
-                        // rows={7}
-                        // cols={60}
                     />
                 </div>
                 <div className="ticket-modal-buttons">

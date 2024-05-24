@@ -48,10 +48,12 @@ export default function Admin() {
         }
     };
 
+    // open modal
     const openModal = (ticket) => {
         setSelectedTicket(ticket);
     }
 
+    // close modal
     const closeModal = () => {
         setSelectedTicket(null);
     }
