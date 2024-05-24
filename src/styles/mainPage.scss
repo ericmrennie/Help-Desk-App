@@ -1,0 +1,108 @@
+.main-page-container {
+    margin-top: 125px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto; /* Adjust the height as needed */
+}
+
+.main-page-form {
+    background-color: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    border-radius: 30px;
+    border: 2px outset #000;
+    min-width: 500px;
+    max-width: 90%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.help-desk-title {
+    font-size: 40px;
+}
+
+.ticket-summary .response-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.description-input {
+    width: 500px; /* Set width for textarea */
+    height: 150px;
+}
+
+textarea {
+    min-width: 500px;
+    max-width: 1000px;
+    min-height: 150px;
+    max-height: 150px;
+}
+
+#nameInput {
+    min-width: 100px;
+    max-width: 200px;
+    min-height: 10px;
+    max-height: 150px;
+}
+
+#emailInput {
+    min-width: 100px;
+    max-width: 200px;
+    min-height: 10px;
+    max-height: 150px;
+}
+
+.submit-button{
+    max-width: 103px;
+}
+
+@media (max-width: 600px) {
+    .main-page-container {
+        margin-top: 20px;
+    }
+
+    .main-page-form {
+        padding: 30px;
+        border-radius: 20px;
+        max-width: 90%;
+        min-width: auto;
+        margin-top: 50px;
+    }
+
+    .help-desk-title {
+        font-size: 30px;
+    }
+
+    .ticket-summary .response-wrapper {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .description-input {
+        width: 90%; /* Set width for textarea */
+        height: 100px; /* Reduce height for mobile */
+        resize: vertical; 
+    }
+
+    .admin-page-button {
+        margin-bottom: 20px;
+    }
+
+    input {
+        min-width: 200px;
+    }
+
+    textArea {
+        min-height: 200px;
+        min-width: 250px;
+    }
+
+    button {
+        min-width: 100px;
+    }
+}

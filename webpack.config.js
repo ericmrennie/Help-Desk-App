@@ -1,5 +1,18 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+
+// Load environment variables from .env file
+const env = dotenv.config().parsed;
+
+// Create an object that contains key-value pairs of environment variables
+const envKeys = Object.keys(env).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+}, {});
+
 
 module.exports ={
     mode: 'development',
@@ -7,7 +20,7 @@ module.exports ={
         bundle: path.resolve(__dirname, 'src/index.js')
     },
     output: {
-        path: path.resolve(__dirname, 'public'),
+        path: path.resolve(__dirname, 'dist'),
         filename: '[name][contenthash].js',
         clean: true,
         assetModuleFilename: '[name][ext]',
@@ -17,7 +30,7 @@ module.exports ={
         static: {
             directory: path.resolve(__dirname, 'dist')
         },
-        port: 3000,
+        port: 3001,
         proxy: [
             {
                 '/api': {
@@ -25,7 +38,7 @@ module.exports ={
                     pathRewrite: { '^/api': '' },
                     changeOrigin: true,
                 },
-            },
+            }
         ],
         open: true,
         hot: true,
@@ -65,10 +78,12 @@ module.exports ={
         ],
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: 'Help Desk',
             filename: 'index.html',
             template: 'src/template.html',
         }),
+        new webpack.DefinePlugin(envKeys)
     ],
 }

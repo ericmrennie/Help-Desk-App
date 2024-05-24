@@ -38,7 +38,7 @@ async function getTickets(req, res, next) {
 async function updateTicket(req, res, next) {
     try{
         const updatedTicket = await Ticket.findOneAndUpdate(
-            { id: req.params.id },
+            { _id: req.params._id },
             { status: req.body.status },
             { new: true }
         );
@@ -58,7 +58,7 @@ async function updateTicket(req, res, next) {
 async function handleResponse(req, res, next) {
     try{
         const handledResponse = await Ticket.findOneAndUpdate(
-            { id: req.params.id },
+            { _id: req.params._id },
             { response: req.body.response },
             { new: true }
         );

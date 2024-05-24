@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom';
 import MainPage from './MainPage.jsx'
 import Admin from './Admin.jsx';
+import '../styles/app.scss'
 
 export default function App() {
     return(

@@ -2,16 +2,20 @@ import React from 'react';
 
 export default function Description({ handleInputChange, value }) {
     return (
-        <div>
             <textarea
+                className='description-input'
                 id="descriptionInput"
                 name="description"
-                placeholder='Problem Description...'
-                rows={7} 
-                cols={60} 
+                placeholder="What can I help you with?"
                 value={value}
                 onChange={handleInputChange}
+                style={{ 
+                    padding: '7px', 
+                    borderRadius: '10px',
+                    margin: '0 auto',
+                    marginBottom: '15px',
+                    border: '1px outset #000'
+                }}
             />
-        </div>
     );
 }

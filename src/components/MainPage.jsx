@@ -1,62 +1,68 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Name from './Name.jsx'
 import Email from './Email.jsx'
 import Description from './Description.jsx'
-import '../styles/main.scss'
+import Snackbar from './Snackbar.jsx'
+import Form from './Form.jsx'
+import '../styles/mainPage.scss'
 import { Link } from 'react-router-dom';
+import api from '../utils/api.js'
 
 export default function MainPage() {
 
-    // state for form data
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        description: '',
-    });
+    // state for snackbar
+    const [snackbarKey, setSnackbarKey] = useState(0);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarType, setSnackbarType] = useState('');
 
-    // event handler for setForm data
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
-    };
+    // Check local storage on mount
+    useEffect(() => {
+        const snackbarShown = localStorage.getItem('snackbarShown');
+        if (snackbarShown) {
+            localStorage.removeItem('snackbarShown'); // Remove the flag if it exists
+        }
+    }, []);
+
 
     // submit formData to database
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async (formData) => {
         try {
-            const response = await fetch('http://localhost:5050/api/tickets', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-            if (response.ok) {
-                console.log('Ticket submitted successfully');
-                setFormData({
-                    name: '',
-                    email: '',
-                    description: '',
-                });
-                window.alert('Ticket submitted!')
+            const data = await api.submitTicket(formData);
+            if (data) {
+                setSnackbarMessage('Ticket submitted successfully!');
+                setSnackbarType('success');
+                console.log('Ticket data: ',data)
             } else {
-                console.error('Failed to submit ticket');
+                setSnackbarMessage('Ticket submission failed.');
+                setSnackbarType('error');
             }
+            setSnackbarKey((prevKey) => prevKey + 1);
         } catch (error) {
+            setSnackbarMessage('Error submitting ticket.');
+            setSnackbarType('error');
             console.error('Error submitting ticket:', error);
+            setSnackbarKey((prevKey) => prevKey + 1);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="main-page-form">
+        <div>
+            <div className='title-and-button'>
             <h1 className="help-desk-title">Help Desk</h1>
-            <Name handleInputChange={handleInputChange} value={formData.name} />
-            <Email handleInputChange={handleInputChange} value={formData.email} />
-            <Description handleInputChange={handleInputChange} value={formData.description} />
-            <button type="submit" className="submit-button">Submit</button>
             <Link to='/admin'>
                 <button className="admin-page-button">Go to Admin Page</button>
             </Link>
-        </form>
+            </div>
+            <div className='main-page-container'>
+                <div className='main-page-form'>
+                <Form initialState={{ name: '', email: '', description: '' }} onSubmit={handleSubmit} >
+                    <Name name="name" />
+                    <Email name="email" />
+                    <Description name="description" />
+                </Form>
+                </div>
+                <Snackbar key={snackbarKey} message={snackbarMessage} show={snackbarMessage !== ''} type={snackbarType} />
+            </div>
+        </div>
     );
-}
+};
