@@ -1,4 +1,4 @@
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const api = {
     // Function to post ticket to database
