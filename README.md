@@ -1,4 +1,4 @@
-# Zealthy-FSE-Exercise
+# Help-Desk-App
 
 Stack: React, Node.js, Express, MongoDB
 
