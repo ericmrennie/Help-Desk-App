@@ -2,6 +2,6 @@
 
 Stack: React, Node.js, Express, MongoDB
 
-Users can submit their help desk tickets by entering their information along with the issue. Upon successful submission, a snackbar notification appears at the bottom of the screen, confirming that the ticket has been successfully submitted. If the submission is unsuccessful, a snackbar notification will inform the user of the failure.
-
-On the admin side, there’s an intuitive layout that displays each help desk ticket as a card. These cards include the engineer's name, email, and the ticket's status, which defaults to 'New' upon submission. By pressing the 'View Details' button, administrators can drill down into the ticket via a modal, update the status, and enter a response.
+Users can easily submit help desk tickets by providing their information and a description of the issue. A snackbar notification confirms successful submissions or alerts users to any errors.
+ 
+Administrators benefit from a user-friendly interface displaying tickets as cards, each showing the engineer's name, email, and the ticket's status (defaulting to 'New' upon submission). With the 'View Details' button, admins can access ticket details through a modal, update statuses, and provide responses efficiently.
